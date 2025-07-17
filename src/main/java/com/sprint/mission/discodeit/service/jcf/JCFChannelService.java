@@ -1,44 +1,61 @@
 package com.sprint.mission.discodeit.service.jcf;
 
 import com.sprint.mission.discodeit.entity.Channel;
+import com.sprint.mission.discodeit.entity.User;
 import com.sprint.mission.discodeit.service.ChannelService;
 
 import java.util.*;
 
-
 public class JCFChannelService implements ChannelService {
 
-    private final Map<UUID, Channel> data;
 
-    public JCFChannelService() {
-        this.data = new HashMap<>();
+    final Map<UUID, Channel> data = new HashMap<>();
+
+
+    @Override
+    public Channel createChannel(String name) {
+        if(name == null || name.isBlank()){
+            throw new IllegalArgumentException("name is null");
+        }
+        Channel channel = new Channel(name);
+        data.put(channel.getId() , channel);
+        return channel;
     }
 
     @Override
-    public void createChannel(Channel channel) {
-        data.put(channel.getId(), channel);
-    }
-
-    @Override
-    public Channel getChannelById(UUID channelId) {
+    public Channel find(UUID channelId) {
+        if(!data.containsKey(channelId)){
+            throw new NoSuchElementException("channel not found");
+        }
         return data.get(channelId);
     }
 
     @Override
-    public List<Channel> getAllChannels() {
+    public List<Channel> findAll() {
         return new ArrayList<>(data.values());
     }
 
     @Override
-    public void updateChannel(UUID channelId, long updatedAt) {
-        Channel channel = data.get(channelId);
-        if (channel != null) {
-            channel.updateTimestamp(updatedAt);
+    public Channel update(UUID channelId, String name) {
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("name is null or blank");
         }
+
+        Channel channel = data.get(channelId);
+        if (channel == null) {
+            throw new NoSuchElementException("channel not found");
+        }
+        Channel updatedChannel = new Channel(name);
+        data.put(channelId, updatedChannel);
+        return updatedChannel;
     }
 
     @Override
-    public void deleteChannel(UUID channelId) {
-        data.remove(channelId);
-    }
+    public Channel delete(UUID channelId) {
+            Channel channel = data.remove(channelId);
+            if(channel == null){
+                throw new NoSuchElementException("channel not found");
+            }
+            return channel;
+        }
 }

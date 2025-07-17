@@ -4,38 +4,64 @@ import java.util.UUID;
 
 public class Message {
     private UUID id;
-    private long updatedAt;
-    private long createdAt;
+    private Long createdAt;
+    private Long updatedAt;
 
-    public Message(){
-        this.id = UUID.randomUUID();
-        this.updatedAt = System.currentTimeMillis();
-        this.createdAt = this.updatedAt;
+    //내가 디스코드에서 필요한 필드를 추가적으로 설계하는 자리
+    private String content;
+
+    // 소속된 채널과 글쓴이 표현
+    private String channelId;
+    private String authorId;
+
+    public Message(String content, String channelId, String authorId) {
+        id = UUID.randomUUID();
+        this.content = content;
+        this.channelId = channelId;
+        this.authorId = authorId;
+        createdAt = System.currentTimeMillis();
     }
 
     public UUID getId() {
         return id;
     }
 
-    public long getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public long getCreatedAt() {
+    public Long getCreatedAt() {
         return createdAt;
     }
 
-    public void updateTimestamp(long updatedAt) {
-        this.updatedAt = updatedAt;
+    public Long getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public String getChannelId() {
+        return channelId;
+    }
+
+    public String getAuthorId() {
+        return authorId;
+    }
+
+    public void update(String content, String channelId, String authorId){
+        this.content = content;
+        this.channelId = channelId;
+        this.authorId = authorId;
+        updatedAt = System.currentTimeMillis();
     }
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Message{");
-        sb.append("id=").append(id);
-        sb.append(", updatedAt=").append(updatedAt);
-        sb.append(", createdAt=").append(createdAt);
-        sb.append('}');
-        return sb.toString();
+        return "Message{" +
+                "id=" + id +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", content='" + content + '\'' +
+                ", channelId=" + channelId +
+                ", authorId=" + authorId +
+                '}';
     }
 }

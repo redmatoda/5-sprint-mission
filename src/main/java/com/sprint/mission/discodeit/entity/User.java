@@ -3,44 +3,57 @@ package com.sprint.mission.discodeit.entity;
 import java.util.UUID;
 
 public class User {
-
+    
     private UUID id;
+    private Long createdAt;
+    private Long updatedAt;
 
-    private long createdAt;
-    private long updatedAt;
+    //내가 디스코드에서 필요한 필드를 추가적으로 설계하는 자리
+    private String username;
+    private String password;
 
-    public User() {
-        this.id = UUID.randomUUID();
-        this.createdAt = System.currentTimeMillis();
-        this.updatedAt = this.createdAt;
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("User{");
-        sb.append("id=").append(id);
-        sb.append('}');
-        return sb.toString();
+    public User(String username, String password) {
+        id = UUID.randomUUID();
+        this.username = username;
+        this.password = password;
+        createdAt = System.currentTimeMillis();
     }
 
     public UUID getId() {
         return id;
     }
 
-    public void updateId(){
-        this.id = id;
-    }
-
-    public long getCreatedAt() {
+    public Long getCreatedAt() {
         return createdAt;
     }
 
-    public long getUpdatedAt() {
+    public Long getUpdatedAt() {
         return updatedAt;
     }
 
-    public void updateTimestamp(long updatedAt) {
-        this.updatedAt = updatedAt;
+    public String getUsername() {
+        return username;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void update(String username, String password){
+    this.username = username;
+    this.password = password;
+    updatedAt = System.currentTimeMillis();
+
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

@@ -5,38 +5,47 @@ import java.util.UUID;
 public class Channel {
 
     private UUID id;
-    private long updatedAt;
-    private long createdAt;
+    private Long createdAt;
+    private Long updatedAt;
 
-    public Channel(){
-        this.id = UUID.randomUUID();
-        this.createdAt = System.currentTimeMillis();
-        this.updatedAt = this.createdAt;
+    //내가 디스코드에서 필요한 필드를 추가적으로 설계하는 자리
+    private String name;
+
+    public Channel(String name) {
+        id = UUID.randomUUID();
+        this.name = name;
+        createdAt = System.currentTimeMillis();
     }
+
 
     public UUID getId() {
         return id;
     }
 
-    public long getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public long getCreatedAt() {
+    public Long getCreatedAt() {
         return createdAt;
     }
 
-    public void updateTimestamp(long updatedAt) {
-        this.updatedAt = updatedAt;
+    public Long getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void update(String name){
+        this.name = name;
+        updatedAt = System.currentTimeMillis();
     }
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Channel{");
-        sb.append("id=").append(id);
-        sb.append(", updatedAt=").append(updatedAt);
-        sb.append(", createdAt=").append(createdAt);
-        sb.append('}');
-        return sb.toString();
+        return "Channel{" +
+                "id=" + id +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", name='" + name + '\'' +
+                '}';
     }
 }
