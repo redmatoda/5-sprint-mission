@@ -40,6 +40,12 @@ public class BasicReadStatusService implements ReadStatusService {
     }
 
     @Override
+    public List<ReadStatus> findAllByUserId(UUID userId) {
+        return readStatusRepository.findAllByUserId(userId).stream()
+                .toList();
+    }
+
+    @Override
     public List<ReadStatus> findAll() {
         return readStatusRepository.findAll();
     }

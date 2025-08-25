@@ -1,6 +1,6 @@
 package com.sprint.mission.discodeit.dto.request;
 
-public record AuthServiceRequest(
+public record LoginRequest(
         String username,
         String password
 ) {

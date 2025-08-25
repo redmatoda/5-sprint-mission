@@ -10,9 +10,10 @@ import java.util.UUID;
 
 @Getter
 @ToString
-public class BinaryContent extends BaseEntity implements java.io.Serializable {
-    @Serial
+public class BinaryContent implements java.io.Serializable {
     private static final long serialVersionUID = 1L;
+    private UUID id;
+    private Instant createdAt;
 
     private String fileName;
     private String contentType; // jpg, ... 확장자

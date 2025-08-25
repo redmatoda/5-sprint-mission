@@ -28,6 +28,21 @@ public class JCFReadStatusRepository implements ReadStatusRepository {
         return Optional.ofNullable(this.data.get(id));
     }
 
+
+    @Override
+    public List<ReadStatus> findAllByUserId(UUID userId) {
+        return this.data.values().stream()
+                .filter(readStatus -> readStatus.getUserId().equals(userId))
+                .toList();
+    }
+
+    @Override
+    public List<ReadStatus> findAllByChannelId(UUID channelId) {
+        return this.data.values().stream()
+                .filter(readStatus -> readStatus.getChannelId().equals(channelId))
+                .toList();
+    }
+
     @Override
     public List<ReadStatus> findAll() {
         return this.data.values().stream().toList();

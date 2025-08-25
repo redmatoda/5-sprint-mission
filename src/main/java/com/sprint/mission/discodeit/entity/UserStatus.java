@@ -11,22 +11,22 @@ import java.util.UUID;
 @Setter
 public class UserStatus extends BaseEntity {
     private UUID userId;
-    private Instant lastSeenAt;
+    private Instant lastActiveAt;
 
-    public UserStatus(UUID userId, Instant lastSeenAt) {
+    public UserStatus(UUID userId, Instant lastActiveAt) {
         super();
         this.userId = userId;
-        this.lastSeenAt = lastSeenAt;
+        this.lastActiveAt = lastActiveAt;
     }
 
     public boolean isOnline() {
-        return lastSeenAt != null &&
-                Duration.between(lastSeenAt, Instant.now()).toMinutes() <= 5;
+        return lastActiveAt != null &&
+                Duration.between(lastActiveAt, Instant.now()).toMinutes() <= 5;
     }
 
     public void update(Instant newSeenAt) {
-        if (newSeenAt.isAfter(this.lastSeenAt)) {
-            this.lastSeenAt = newSeenAt;
+        if (newSeenAt.isAfter(this.lastActiveAt)) {
+            this.lastActiveAt = newSeenAt;
             this.updatedAt = Instant.now();
         }
     }
